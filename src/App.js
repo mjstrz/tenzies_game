@@ -1,9 +1,11 @@
 import './App.css';
-import React from 'react';
-
+import React, { useState } from 'react';
 import Dice from './components/dice';
 
 export default function App() {
+
+
+  const [dice, setDice] = useState(allNewDice())
 
   function allNewDice() {
 
@@ -15,20 +17,12 @@ export default function App() {
   }  
     console.log(allNewDice());
   
+  const diceElements = dice.map(die => <Dice value={dice} />)
 
   return (
     <main>
         <div className='dice-container'>
-            <Dice value="1" />
-            <Dice value="1"/>
-            <Dice value="1"/>
-            <Dice value="1"/>
-            <Dice value="1"/>
-            <Dice value="1"/>
-            <Dice value="1"/>
-            <Dice value="1"/>
-            <Dice value="1"/>
-            <Dice value="1"/>
+            {diceElements}
         </div> 
     </main>
   );
