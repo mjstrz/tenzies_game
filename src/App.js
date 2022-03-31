@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Die from './components/die';
 import Button from 'react-bootstrap/Button';
 import {nanoid} from 'nanoid';
@@ -7,6 +7,21 @@ import {nanoid} from 'nanoid';
 export default function App() {
 
   const [dice, setDice] = useState(allNewDice())
+
+  /**
+ * Challenge:
+ * 1. Add new state called `tenzies`, default to false. It
+ *    represents whether the user has won the game yet or not.
+ * 2. Add an effect that runs every time the `dice` state array 
+ *    changes. For now, just console.log("Dice state changed").
+ */
+
+  const [tenzies, setTenzies] = useState(false)
+
+  useEffect(() => {
+    console.log("dice state changed")
+  }, [dice])
+  //will run everytime the dice changes
 
 
   function generateNewDie() {
