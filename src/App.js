@@ -7,16 +7,15 @@ import {nanoid} from 'nanoid';
 export default function App() {
 
 /**
- * Challenge: Create a function `holdDice` that takes
- * `id` as a parameter. For now, just have the function
- * console.log(id).
+ * Challenge: Update the `holdDice` function to flip
+ * the `isHeld` property on the object in the array
+ * that was clicked, based on the `id` prop passed
+ * into the function.
  * 
- * Then, figure out how to pass that function down to each
- * instance of the Die component so when each one is clicked,
- * it logs its own unique ID property. (Hint: there's more
- * than one way to make that work, so just choose whichever
- * you want)
- * 
+ * Hint: as usual, there's > 1 way to accomplish this.
+ * I'll be using `dice.map()` and checking for the `id`
+ * of the die to determine which one to flip `isHeld` on,
+ * but you can do whichever way makes the most sense to you.
  */
 
   const [dice, setDice] = useState(allNewDice())
@@ -40,7 +39,11 @@ export default function App() {
   }
 
   function holdDice(id) {
-    console.log(id)
+    setDice(oldDice => oldDice.map(die => {
+        return die.id === id ? {...die, isHeld: !die.isHeld} : //take props of original die, but !die.isHeld
+        die
+    }))
+
   }
   
   const diceElements = dice.map(die => (
