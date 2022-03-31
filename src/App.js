@@ -6,13 +6,17 @@ import {nanoid} from 'nanoid';
 
 export default function App() {
 
-  /**
- * Challenge: Add conditional styling to the Die component
- * so that if it's held (isHeld === true), its background color
- * changes to a light green (#59E391)
+/**
+ * Challenge: Create a function `holdDice` that takes
+ * `id` as a parameter. For now, just have the function
+ * console.log(id).
  * 
- * Remember: currently the Die component has no way of knowing
- * if it's "held" or not.
+ * Then, figure out how to pass that function down to each
+ * instance of the Die component so when each one is clicked,
+ * it logs its own unique ID property. (Hint: there's more
+ * than one way to make that work, so just choose whichever
+ * you want)
+ * 
  */
 
   const [dice, setDice] = useState(allNewDice())
@@ -34,9 +38,18 @@ export default function App() {
     function rollDice() {
       setDice(allNewDice())
   }
+
+  function holdDice(id) {
+    console.log(id)
+  }
   
   const diceElements = dice.map(die => (
-      <Die key={die.id} value={die.value} isHeld={die.isHeld} />)) //die.id is created by nanoID 
+     //die.id is created by nanoID 
+      <Die key={die.id} value={die.value} isHeld={die.isHeld} holdDice={() => holdDice(die.id)}/>)) 
+                                                             // holdDice function passed down to each
+                                              //* instance of the Die component so when each one is clicked, 
+                                                // it logs its own unique ID property
+     
 
   return (
     <main>
