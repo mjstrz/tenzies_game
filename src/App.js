@@ -6,36 +6,34 @@ import {nanoid} from 'nanoid';
 
 export default function App() {
 
-/**
- * Challenge: Update the `holdDice` function to flip
- * the `isHeld` property on the object in the array
- * that was clicked, based on the `id` prop passed
- * into the function.
- * 
- * Hint: as usual, there's > 1 way to accomplish this.
- * I'll be using `dice.map()` and checking for the `id`
- * of the die to determine which one to flip `isHeld` on,
- * but you can do whichever way makes the most sense to you.
- */
-
   const [dice, setDice] = useState(allNewDice())
+
+
+  function generateNewDie() {
+    return {
+      value: Math.ceil(Math.random() * 6), // Update the array of numbers in state to be
+      isHeld: false,                      // an array of objects instead.
+      id: nanoid() // nanoid - a fast way to generate a random ID 
+    }
+  }
 
   function allNewDice() {
     const newDice = [] //new array to hold the numbers
     for (let i = 0; i < 10; i++) { // loop 10 times
-        newDice.push({
-          value: Math.ceil(Math.random() * 6), // Update the array of numbers in state to be
-          isHeld: false,                      // an array of objects instead.
-          id: nanoid() // nanoid - a fast way to generate a random ID 
-        }) 
+        newDice.push(generateNewDie()) 
       }
       return newDice // return array 
   }  
     console.log(allNewDice());
 
-  // Re-roll all 10 dice 
+
+  // ONLY rolls dice that are NOT being held 
     function rollDice() {
-      setDice(allNewDice())
+      setDice(oldDice => oldDice.map(die => {
+        return die.isHeld ? // if die is being held,
+            die : // Keep it. If not, 
+            generateNewDie()  // call function 
+      }))
   }
 
   function holdDice(id) {
@@ -56,6 +54,8 @@ export default function App() {
 
   return (
     <main>
+        <h1 className="title">Tenzies</h1>
+        <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
         <div className='dice-container'>
             {diceElements}
         </div> 

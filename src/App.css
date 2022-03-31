@@ -27,6 +27,7 @@ main {
   /* repeat function w/ 5 columns that are 1fr unit wide */
   gap: 20px; 
   /* spreads out the dice */
+  margin-bottom: 40px;
 }
 
 .dice-face { 
