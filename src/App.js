@@ -7,6 +7,11 @@ import Confetti from 'react-confetti';
 
 export default function App() {
 
+  /**
+ * Challenge: Allow the user to play a new game when the
+ * button is clicked and they've already won
+ */
+  
   const [dice, setDice] = useState(allNewDice())
 
 
@@ -26,15 +31,6 @@ export default function App() {
   }, [dice])
   //will run everytime the dice changes
 
-  /**
- * Challenge: Tie off loose ends!
- * 1. If tenzies is true, Change the button text to "New Game"
- * 2. If tenzies is true, use the "react-confetti" package to
- *    render the <Confetti /> component 🎉
- * 
- *    Hint: don't worry about the `height` and `width` props
- *    it mentions in the documentation.
- */
 
   function generateNewDie() {
     return {
@@ -56,12 +52,17 @@ export default function App() {
 
   // ONLY rolls dice that are NOT being held 
     function rollDice() {
+      if(!tenzies) {
       setDice(oldDice => oldDice.map(die => {
         return die.isHeld ? // if die is being held,
             die : // Keep it. If not, 
             generateNewDie()  // call function 
       }))
+  } else {
+    setTenzies(false)
+    setDice(allNewDice())
   }
+}
 
   function holdDice(id) {
     setDice(oldDice => oldDice.map(die => {
